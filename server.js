@@ -23,6 +23,8 @@ db.once("open", () => console.log("Connected to Mongoose"));
 
 //reference the route from the routes folder
 const indexRouter = require("./routes/index");
+//Author router
+const authorRouter = require("./routes/authors")
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -32,5 +34,8 @@ app.use(express.static("public"));
 
 // use the route from index
 app.use("/", indexRouter);
+
+// use the router from Authors
+app.use("/authors", authorRouter)
 
 app.listen(process.env.PORT || 3000);
