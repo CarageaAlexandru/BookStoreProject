@@ -5,14 +5,23 @@ const Author = require("../models/author");
 //The route for all authors
 
 router.get("/", async (req, res) => {
+  // Search Authors
+  let searchOptions = {};
+  if (req.query.name != null && req.query.name !== "") {
+    searchOptions.name = new RegExp(req.query.name, "i");
+  }
+
   // displaying the authors using async
   try {
     // we will try to display all authors
-    const authors = await Author.find({});
-    res.render("authors/index", { authors: authors});
+    const authors = await Author.find(searchOptions);
+    res.render("authors/index", {
+      authors: authors, 
+      searchOptions: req.query
+    });
   } catch {
     // if something wrong happens we will redirect the user to our homepage
-    res.redirect('/')
+    res.redirect("/");
   }
 });
 
