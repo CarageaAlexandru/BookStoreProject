@@ -4,9 +4,16 @@ const Author = require("../models/author");
 
 //The route for all authors
 
-router.get("/", (req, res) => {
-  // use render to render the index.ejs file
-  res.render("authors/index");
+router.get("/", async (req, res) => {
+  // displaying the authors using async
+  try {
+    // we will try to display all authors
+    const authors = await Author.find({});
+    res.render("authors/index", { authors: authors});
+  } catch {
+    // if something wrong happens we will redirect the user to our homepage
+    res.redirect('/')
+  }
 });
 
 // Route for new authors only
