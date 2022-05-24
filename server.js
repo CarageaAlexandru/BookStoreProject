@@ -27,8 +27,10 @@ db.once("open", () => console.log("Connected to Mongoose"));
 //reference the route from the routes folder
 const indexRouter = require("./routes/index");
 //Author router
+
 const authorRouter = require("./routes/authors")
 // book route
+
 const bookRouter = require("./routes/books")
 
 app.set("view engine", "ejs");
