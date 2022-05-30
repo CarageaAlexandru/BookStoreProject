@@ -15,8 +15,12 @@
     "ejs": "^3.0.2",
     "express": "^4.17.3",
     "express-ejs-layouts": "^2.5.1",
+<<<<<<< HEAD
     "mongoose": "^6.2.8",
     "dotenv": "^16.0.0"
+=======
+    "mongoose": "^6.2.9"
+>>>>>>> 1839727f7e64743d4a3748f4886fc3201d7f80ca
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

@@ -1,15 +1,13 @@
 const mongoose = require("mongoose")
 
-// Create the Schema for new Authors
-
-const authorSchema = new mongoose.Schema({
+const authorsSchema = new mongoose.Schema({
     name: {
-        type:String,
+        type: String,
         required: true
     }
 })
 
-// Export the mongoose schema model 
-// 2 parameterrs ( The name of our table , and the second is the schema)
+// We need to export the schema like so
+// We gibe a name to our model ( first parameter , second we bind it to the build schema)
 
-module.exports = mongoose.model('Author', authorSchema)
+module.exports = mongoose.model('Author', authorsSchema)
