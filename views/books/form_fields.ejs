@@ -1,18 +1,33 @@
-<label>Title</label>
-<input type="text" name="title" value="<%= book.title %>" />
+<div>
+  <label>Title</label>
+  <input type="text" name="title" value="<%= book.title %>" />
+</div>
+<div>
+  <label>Author</label>
+</div>
 
-<label>Author</label>
-<select name="author">
-    <% authors.forEach(author => { %>
-        <% if (author.id === book.author) { %>
-          <option selected label="<%= author.name %>" value="<%= author.id %>">
-        <% } else { %>
-          <option label="<%= author.name %>" value="<%= author.id %>">
-        <% } %>
-      <% }) %>
-</select>
+<div>
+  <select name="author">
+    <% authors.forEach(author => { %> <% if (author.id === book.author) { %>
+    <option selected label="<%= author.name %>" value="<%= author.id %>">
+      <% } else { %>
+    </option>
 
+    <option label="<%= author.name %>" value="<%= author.id %>">
+      <% } %> <% }) %>
+    </option>
+  </select>
+</div>
 
+<!-- We need to convert publishDate to match our date type -->
+<div>
+  <label>Publish Date</label>
+  <input
+    type="date"
+    name="publishDate"
+    value="<% book.publishDate == null ? '' : book.publishDate.toISOString().split('T') %> "
+  />
+</div>
 <!-- If we go on new author and we pass the value inside the input
  and hit create , the name will be send to our create route. -->
 <!-- we need to install body parser to access the input elements

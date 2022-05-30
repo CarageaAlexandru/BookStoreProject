@@ -29,8 +29,8 @@ const indexRouter = require("./routes/index");
 //Author router
 
 const authorRouter = require("./routes/authors")
-// book route
 
+// book route
 const bookRouter = require("./routes/books")
 
 app.set("view engine", "ejs");
