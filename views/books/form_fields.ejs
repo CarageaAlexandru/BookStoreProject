@@ -1,6 +1,6 @@
 <div>
   <label>Title</label>
-  <input type="text" name="title" value="<%= book.title %>" />
+  <input type="text" name="title" value="<%= book.title %>">
 </div>
 <div>
   <label>Author</label>
@@ -26,10 +26,38 @@
     type="date"
     name="publishDate"
     value="<% book.publishDate == null ? '' : book.publishDate.toISOString().split('T') %> "
-  />
+  >
 </div>
+
 <!-- If we go on new author and we pass the value inside the input
  and hit create , the name will be send to our create route. -->
 <!-- we need to install body parser to access the input elements
 from our server -->
 <!-- Insert all the book fields accordingly to our schema -->
+
+
+<div>
+  <label>Page Count</label>
+  <input
+    type="number"
+    name="pageCount"
+    min="1"
+    value="<% book.pageCount %> "
+  >
+</div>
+
+<div>
+  <label>Cover</label>
+  <input
+    type="file"
+    name="cover"
+  >
+</div>
+
+<div>
+  <label>Description</label>
+  <textarea
+    type="text"
+    name="description"
+  ><%= book.description %> </textarea>
+</div>
