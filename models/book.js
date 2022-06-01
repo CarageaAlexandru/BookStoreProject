@@ -1,4 +1,7 @@
+const { path } = require("express/lib/application")
 const mongoose = require("mongoose")
+
+const coverImageBasePath = 'uploads/bookCovers'
 
 // Create the Schema for new Books
 // 
@@ -39,4 +42,11 @@ const bookSchema = new mongoose.Schema({
 // Export the mongoose schema model 
 // 2 parameterrs ( The name of our table , and the second is the schema)
 
+bookSchema.virtual('coverImagePath').get(function() {
+    if (this.coverImageBasePath != null) {
+        return path.join('/', coverImageBasePath, this.coverImageName)
+    }
+})
+
 module.exports = mongoose.model('Book', bookSchema)
+module.exports.coverImageBasePath = coverImageBasePath
