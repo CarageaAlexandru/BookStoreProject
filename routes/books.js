@@ -56,6 +56,17 @@ router.post("/", async (req, res) => {
   }
 })
 
+// READ books route
+
+router.get('/:id', async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id).populate('author').exec()
+    res.render('books/showBooks', { book: book })
+  } catch  {
+    res.redirect('/')
+  }
+})
+
 // rendering page function
 async function renderNewPage(res, book, hasError = false) {
   try {
