@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 // Route for new authors only
 // We need to pass the schema from MODELS / AUTHOR
 router.get("/new", (req, res) => {
-  res.render("authors/new", { Author: new Author() });
+  res.render("authors/new", { author: new Author() });
   // Now we can create our form for new author in NEW.EJS
 });
 
