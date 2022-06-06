@@ -7,6 +7,7 @@ const multer = require("multer");
 const path = require("path");
 const { redirect } = require("express/lib/response");
 const res = require("express/lib/response");
+const { query } = require("express");
 const uploadPath = path.join('public', Book.coverImageBasePath)
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
 // default variables for images
@@ -20,9 +21,17 @@ const upload = multer({
 //The route for all books
 
 router.get("/", async (req, res) => {
+  // same like authors route we can implement for books
+
+  let query = Book.find()
+  if (req.query.title != null && req.query.title != "") {
+    booksQuery = query.regex("title", new RegExp(req.query.title, 'i'))
+  }
+
+
   // Search Books
   try {
-    const books = await Book.find({})
+    const books = await query.exec()
     res.render("books/index", {
       books: books,
       searchOptions: req.query
