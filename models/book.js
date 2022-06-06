@@ -1,7 +1,5 @@
-const { path } = require("express/lib/application")
 const mongoose = require("mongoose")
 
-const coverImageBasePath = 'uploads/bookCovers'
 
 // Create the Schema for new Books
 // 
@@ -26,10 +24,15 @@ const bookSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    coverImageName: {
+    coverImage: {
+        type: Buffer,
+        required: true
+    },
+    coverImageType: {
         type: String,
         required: true
     },
+
     author: {
         // reference to author id
         type: mongoose.Schema.Types.ObjectId,
@@ -43,10 +46,11 @@ const bookSchema = new mongoose.Schema({
 // 2 parameterrs ( The name of our table , and the second is the schema)
 
 bookSchema.virtual('coverImagePath').get(function() {
-    if (this.coverImageBasePath != null) {
-        return path.join('/', coverImageBasePath, this.coverImageName)
+    if (this.coverImageBasePath != null && this.coverImageType != null) {
+        return `data:${this.coverImageType};charset=utf-8;base64,
+        ${this.coverImage.toString('base64')}`
     }
 })
 
+
 module.exports = mongoose.model('Book', bookSchema)
-module.exports.coverImageBasePath = coverImageBasePath

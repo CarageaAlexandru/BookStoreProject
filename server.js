@@ -3,9 +3,9 @@ const express = require("express");
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
 require("dotenv").config();
-
-// import the body parser for the input field
-const bodyParser = require('body-parser')
+// import the body paser for the input field
+const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 
 // Connection to the database with mongoose
 mongoose
@@ -39,6 +39,7 @@ app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({limit: '10mb', extended:false}))
+app.use(methodOverride('method_'))
 
 // use the route from index
 app.use("/", indexRouter);
