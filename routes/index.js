@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 
     // later on show implement only showing first 5
     try {
-        books = await Book.find().limit(5).exec()
+        books = await Book.find().sort({ createdAt: 'desc'}).limit(5).exec()
     } catch {
         books = []
     }

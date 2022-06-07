@@ -4,29 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+    <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script defer src="https://unpkg.com/filepond/dist/filepond.js"></script>
+
+    <script defer src="/javascript.js"></script>
+
     <title>BookStore</title>
-    <!-- Filepond cdn -->
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 
-
-    <!-- Filpond image resize plugin -->
-    <script  src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-    <!-- Filepond file encode plugin -->
-    <script  src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
-    <!-- Filepond image preview plugin -->
-    <script  src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <!-- Filepond script -->
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-    <script src="/public/javascript/fileUpload.js"></script>
 </head>
 <body>
-    <!-- Added header partial layout -->
-    <%- include('../partials/header.ejs') %> 
-    <%- include('../partials/errorMessage.ejs') %> 
-    <%- body %> 
 
-
+    <div class="container">
+        <!-- Added header partial layout -->
+        <%- include('../partials/header.ejs') %> 
+        <div class="inner-container">
+            <%- include('../partials/errorMessage.ejs') %> 
+            <%- body %> 
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,44 +1,40 @@
-const express = require("express");
-const router = express.Router();
-// Update all the routes for book model
-const Book = require("../models/book");
-const Author = require("../models/author");
+const express = require('express')
+const router = express.Router()
+const Book = require('../models/book')
+const Author = require('../models/author')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
 
-//The route for all books
-
-router.get("/", async (req, res) => {
-  // same like authors route we can implement for books
-
+// All Books Route
+router.get('/', async (req, res) => {
   let query = Book.find()
-  if (req.query.title != null && req.query.title != "") {
-    booksQuery = query.regex("title", new RegExp(req.query.title, 'i'))
+  if (req.query.title != null && req.query.title != '') {
+    query = query.regex('title', new RegExp(req.query.title, 'i'))
   }
-
-
-  // Search Books
+  if (req.query.publishedBefore != null && req.query.publishedBefore != '') {
+    query = query.lte('publishDate', req.query.publishedBefore)
+  }
+  if (req.query.publishedAfter != null && req.query.publishedAfter != '') {
+    query = query.gte('publishDate', req.query.publishedAfter)
+  }
   try {
     const books = await query.exec()
-    res.render("books/index", {
+    res.render('books/index', {
       books: books,
       searchOptions: req.query
     })
-  } catch  {
+  } catch {
     res.redirect('/')
   }
-});
+})
 
-// Route for new books only
-router.get("/new", async (req, res) => {
-  // Import book on top
-  // We can pass here the variables that will be send to ejs
+// New Book Route
+router.get('/new', async (req, res) => {
   renderNewPage(res, new Book())
-});
+})
 
 // Create Book Route
-
-router.post("/", async (req, res) => {
-  const book = new Book ({
+router.post('/', async (req, res) => {
+  const book = new Book({
     title: req.body.title,
     author: req.body.author,
     publishDate: new Date(req.body.publishDate),
@@ -49,38 +45,107 @@ router.post("/", async (req, res) => {
 
   try {
     const newBook = await book.save()
-    res.redirect(`books`)
-    
-  } catch {
+    res.redirect(`books/${newBook.id}`)
+  } catch (err){
+    console.log(err)
     renderNewPage(res, book, true)
   }
 })
 
-// READ books route
-
+// Show Book Route
 router.get('/:id', async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id).populate('author').exec()
+    const book = await Book.findById(req.params.id)
+                           .populate('author')
+                           .exec()
     res.render('books/showBooks', { book: book })
-  } catch  {
+  } catch {
     res.redirect('/')
   }
 })
 
-// rendering page function
+// Edit Book Route
+router.get('/:id/edit', async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id)
+    renderEditPage(res, book)
+  } catch {
+    res.redirect('/')
+  }
+})
+
+// Update Book Route
+router.put('/:id', async (req, res) => {
+  let book
+
+  try {
+    book = await Book.findById(req.params.id)
+    book.title = req.body.title
+    book.author = req.body.author
+    book.publishDate = new Date(req.body.publishDate)
+    book.pageCount = req.body.pageCount
+    book.description = req.body.description
+    if (req.body.cover != null && req.body.cover !== '') {
+      saveCover(book, req.body.cover)
+    }
+    await book.save()
+    res.redirect(`/books/${book.id}`)
+  } catch {
+    if (book != null) {
+      renderEditPage(res, book, true)
+    } else {
+      redirect('/')
+    }
+  }
+})
+
+// Delete Book Page
+router.delete('/:id', async (req, res) => {
+  let book
+  try {
+    book = await Book.findById(req.params.id)
+    await book.remove()
+    res.redirect('/books')
+  } catch {
+    if (book != null) {
+      res.render('books/showBooks', {
+        book: book,
+        errorMessage: 'Could not remove book'
+      })
+    } else {
+      res.redirect('/')
+    }
+  }
+})
+
 async function renderNewPage(res, book, hasError = false) {
+  renderFormPage(res, book, 'new', hasError)
+}
+
+async function renderEditPage(res, book, hasError = false) {
+  renderFormPage(res, book, 'edit', hasError)
+}
+
+async function renderFormPage(res, book, form, hasError = false) {
   try {
     const authors = await Author.find({})
-    const params = {  
+    const params = {
       authors: authors,
       book: book
     }
-    if ( hasError ) params.errorMessage = 'Error Creating Book'
-    res.render('books/new', params)
+    if (hasError) {
+      if (form === 'edit') {
+        params.errorMessage = 'Error Updating Book'
+      } else {
+        params.errorMessage = 'Error Creating Book'
+      }
+    }
+    res.render(`books/${form}`, params)
   } catch {
     res.redirect('/books')
   }
 }
+
 function saveCover(book, coverEncoded) {
   if (coverEncoded == null) return
   const cover = JSON.parse(coverEncoded)
@@ -90,5 +155,4 @@ function saveCover(book, coverEncoded) {
   }
 }
 
-// export the file so it can be used in server.js
-module.exports = router;
+module.exports = router
