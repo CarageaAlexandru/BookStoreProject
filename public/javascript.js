@@ -10,3 +10,9 @@ FilePond.setOptions({
   imageResizeTargetHeight: 150,
 });
 FilePond.parse(document.body);
+
+
+function authorBookVerification() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
