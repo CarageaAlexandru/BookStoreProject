@@ -1,12 +1,12 @@
 <div class="form-row">
   <div class="form-item">
       <label>Title</label>
-      <input required type="text" name="title" value="<%= book.title %>">
+      <input type="text" name="title" value="<%= book.title %>" required>
   </div>
 
   <div class="form-item">
     <label>Author</label>
-    <select required name="author">
+    <select  name="author">
       <% authors.forEach(author => { %> <% if (author.id === book.author) { %>
       <option selected label="<%= author.name %>" value="<%= author.id %>">
         <% } else { %>
@@ -22,8 +22,8 @@
 <div class="form-row">
   <div class="form-item">
     <label>Publish Date</label>
-    <input required type="date" name="publishDate"
-      value="<%= book.publishDate == null?'' : book.publishDate.toISOString().split('T')[0]%>">
+    <input type="date" name="publishDate"
+      value="<%= book.publishDate == null?'' : book.publishDate.toISOString().split('T')[0]%> required">
   </div>
   <div class="form-item">
     <label>Page Count</label>
@@ -40,10 +40,10 @@ from our server -->
 <div class="form-row">
   <div class="form-item form-item-no-grow">
     <label>Cover</label>
-    <input required type="file" name="cover" class="book-cover filepond">
+    <input type="file" name="cover" class="book-cover filepond" required>
   </div>
   <div class="form-item">
     <label>Description</label>
-    <textarea required name="description"><%= book.description %></textarea>
+    <textarea name="description" required><%= book.description %></textarea >
   </div>
 </div>
