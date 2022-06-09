@@ -13,7 +13,7 @@ I have created a simple CRUD application that represents a bookstore, following 
 
 ## About The Project
 
-[Project Presentation](assests/Website.pdf "Project Presentation PDF")
+![Project Presentation](https://github.com/CarageaAlexandru/BookStoreProject/blob/master/assets/Website.png?raw=true) 
 
 ### Built With
 
