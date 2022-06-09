@@ -13,7 +13,7 @@ I have created a simple CRUD application that represents a bookstore, following 
 
 ## About The Project
 
-[Project Presentation](assest/Website.pdf "Project Presentation PDF")
+[Project Presentation](assests/Website.pdf "Project Presentation PDF")
 
 ### Built With
 
