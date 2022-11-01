@@ -53,25 +53,6 @@ Install NPM packages
 npm install
 ```
 
-```sh
-npm i express
-```
-
-```sh
-npm install nodemon 
-```
-```sh
-npm install ejs
-```
-
-```sh
-npm install dotenv 
-```
-```sh
-npm install mongoose 
-```
-
-
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
